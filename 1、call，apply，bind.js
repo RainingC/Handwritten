@@ -1,46 +1,36 @@
 /**
  * call
  */
-Function.prototype.myCall = function (context) {
-  // 判断调用对象
-  if (typeof this !== "function") {
-    console.error("type error");
-  }
-  // 获取参数
-  let args = [...arguments].slice(1),
-      result = null;
-  // 判断context是否传入，如果未传入则设置为window
-  context = context || window;
-  // 将调用函数设为对象的方法
-  context.fn = this;
-  // 调用函数
-  result = context.fn(...args);
-  // 删除临时属性并返回结果
-  delete context.fn;
-  return result;
+Function.prototype.myCall = function (context, ...args) {
+  let cxt = context || window;
+  //将当前被调用的方法定义在cxt.func上.(为了能以对象调用形式绑定this)
+  //新建一个唯一的Symbol变量避免重复
+  let func = Symbol()
+  cxt[func] = this;
+  args = args ? args : []
+  //以对象调用形式调用func,此时this指向cxt 也就是传入的需要绑定的this指向
+  const res = args.length > 0 ? cxt[func](...args) : cxt[func]();
+  //删除该方法，不然会对传入对象造成污染（添加该方法）
+  delete cxt[func];
+  return res;
 }
 
 
 /**
  * apply
  */
-Function.prototype.myApply = function (context) {
+Function.prototype.myApply = function (context, args = []) {
   // 判断调用对象
   if (typeof this !== "function") {
     console.error("type error");
   }
-  // 获取参数,
   let result = null;
   // 判断context是否传入，如果未传入则设置为window
   context = context || window;
   // 将调用函数设为对象的方法
   context.fn = this;
   // 调用函数
-  if (arguments[1]) {
-    context.fn(...arguments[1]);
-  } else {
-    context.fn();
-  }
+  result = args.length > 0 ? context.fn(...args) : context.fn();
   // 删除临时属性并返回结果
   delete context.fn;
   return result;
@@ -50,5 +40,33 @@ Function.prototype.myApply = function (context) {
 /**
  * bind
  */
-Function.prototype.myBind = function (context) {
+Function.prototype.myBind = function (context, ...args) {
+  const fn = this;
+  args = args || [];
+  return function newFun (...newArgs) {
+    if (this instanceof newFun) {
+      return new fn()
+    }
+    return fn.apply(context, [...args, ...newArgs]);
+  }
 }
+
+
+let name = '小王',age =17;
+let obj = {
+    name:'小张',
+    age: this.age,
+    myFun: function(from,to){
+        console.log(this.name + ' 年龄 ' + this.age+'来自 '+from+'去往'+ to)
+    }
+}
+let db = {
+    name: '德玛',
+    age: 99
+}
+
+//结果
+obj.myFun.myCall(db,'成都','上海');　　　　 // 德玛 年龄 99  来自 成都去往上海
+obj.myFun.myApply(db,['成都','上海']);      // 德玛 年龄 99  来自 成都去往上海
+obj.myFun.myBind(db,'成都','上海')();       // 德玛 年龄 99  来自 成都去往上海
+obj.myFun.myBind(db,['成都','上海'])();　　 // 德玛 年龄 99  来自 成都, 上海去往 undefined
