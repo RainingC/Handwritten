@@ -41,32 +41,35 @@ Function.prototype.myApply = function (context, args = []) {
  * bind
  */
 Function.prototype.myBind = function (context, ...args) {
-  const fn = this;
-  args = args || [];
-  return function newFun (...newArgs) {
-    if (this instanceof newFun) {
-      return new fn()
+  //新建一个变量赋值为this，表示当前函数
+  const fn = this
+  //判断有没有传参进来，若为空则赋值[]
+  args = args ? args : []
+  //返回一个newFn函数，在里面调用fn
+  return function newFn(...newFnArgs) {
+    if (this instanceof newFn) {
+      return new fn(...args, ...newFnArgs)
     }
-    return fn.apply(context, [...args, ...newArgs]);
+    return fn.apply(context, [...args, ...newFnArgs])
   }
 }
 
 
-let name = '小王',age =17;
+let name = '小王', age = 17;
 let obj = {
-    name:'小张',
-    age: this.age,
-    myFun: function(from,to){
-        console.log(this.name + ' 年龄 ' + this.age+'来自 '+from+'去往'+ to)
-    }
+  name: '小张',
+  age: this.age,
+  myFun: function (from, to) {
+    console.log(this.name + ' 年龄 ' + this.age + '来自 ' + from + '去往' + to)
+  }
 }
 let db = {
-    name: '德玛',
-    age: 99
+  name: '德玛',
+  age: 99
 }
 
 //结果
-obj.myFun.myCall(db,'成都','上海');　　　　 // 德玛 年龄 99  来自 成都去往上海
-obj.myFun.myApply(db,['成都','上海']);      // 德玛 年龄 99  来自 成都去往上海
-obj.myFun.myBind(db,'成都','上海')();       // 德玛 年龄 99  来自 成都去往上海
-obj.myFun.myBind(db,['成都','上海'])();　　 // 德玛 年龄 99  来自 成都, 上海去往 undefined
+obj.myFun.myCall(db, '成都', '上海');　　　　 // 德玛 年龄 99  来自 成都去往上海
+obj.myFun.myApply(db, ['成都', '上海']);      // 德玛 年龄 99  来自 成都去往上海
+obj.myFun.myBind(db, '成都', '上海')();       // 德玛 年龄 99  来自 成都去往上海
+obj.myFun.myBind(db, ['成都', '上海'])();　　 // 德玛 年龄 99  来自 成都, 上海去往 undefined
