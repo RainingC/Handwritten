@@ -1,7 +1,7 @@
 function ajax(url, method, body, headers) {
     return new Promise((resolve, reject) => {
         let req = new XMLHttpRequest();
-        req.open(methods, url);
+        req.open(method, url);
         for (let key in headers) {
             req.setRequestHeader(key, headers[key])
         }
