@@ -18,4 +18,3 @@ function aaa () {
 }
 
 console.log(myInstanceOf(aaa, Function));
-console.log(Function.prototype === Function.__proto__);

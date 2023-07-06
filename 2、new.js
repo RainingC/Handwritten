@@ -16,13 +16,18 @@ function myNew (ctor, ...args) {
     return newObj;
 }
 
-let c = myNew(Ctor);
+// let c = myNew(Ctor);
 
-console.log(c)
-console.log(c.__proto__ === Ctor.prototype);
-console.log(c.__proto__.constructor === Ctor);
+// console.log(c)
+// console.log(c.__proto__ === Ctor.prototype);
+// console.log(c.__proto__.constructor === Ctor);
 
-console.log(Ctor.prototype);
-console.log(Ctor.__proto__ === Function.prototype);
-console.log(Ctor.__proto__.constructor === Function);
-console.log(Ctor instanceof Function);
+// console.log(Ctor.prototype);
+// console.log(Ctor.__proto__ === Function.prototype);
+// console.log(Ctor.__proto__.constructor === Function);
+// console.log(Ctor instanceof Function);
+
+console.log(Function.prototype);
+console.log(Function.__proto__);
+console.log(Function.__proto__ === Function.prototype);
+console.log(Function instanceof Object);
