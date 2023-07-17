@@ -1,16 +1,16 @@
 // 防抖
 function myDebounce(fn, wait, immediate) {
     let timer = null,
-        init = true;
-    return function fn (...args) {
+        canCall = true;
+    return function (...args) {
         clearInterval(timer);
         timer = null;
-        if (immediate && init) {
+        if (immediate && canCall) {
             fn.call(this, args);
-            init = false;
+            canCall = false;
         } else {
             setTimeout(() => {
-                init = true;
+                canCall = true;
                 fn.call(this, args);
             }, wait);
         }
@@ -21,14 +21,14 @@ function myDebounce(fn, wait, immediate) {
 // 节流
 function myThrottle (fn, wait, immediate) {
     let time = null;
-    let init = true;
+    let canCall = true;
     if (immediate) {
         return function (...args) {
-            if (init) {
-                init = false;
+            if (canCall) {
+                canCall = false;
                 fn.call(this, args)
                 time = setTimeout(() => {
-                    init = true
+                    canCall = true
                 }, wait);
             }
         }

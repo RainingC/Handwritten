@@ -1,4 +1,4 @@
-function myObjCreate (Obj) {
+function myObjCreate (Obj, propertiesObject) {
     if (typeof proto !== 'object' && typeof proto !== 'function') {
         throw new TypeError('Object prototype may only be an Object: ' + proto);
     } else if (proto === null) {
@@ -10,7 +10,7 @@ function myObjCreate (Obj) {
     // 新声明一个函数
     function C(){};
     // 将函数的原型指向obj
-    C.prototype = obj;
+    C.prototype = Obj;
     // 返回这个函数的实力化对象
     return new C()
 }
