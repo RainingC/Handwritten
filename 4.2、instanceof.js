@@ -17,4 +17,4 @@ function aaa () {
     // ....
 }
 
-console.log(myInstanceOf(aaa, Function));
+console.log(myInstanceOf([], Array));
