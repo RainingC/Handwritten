@@ -1,0 +1,1 @@
+// 详见https://github.com/RainingC/self-vue
