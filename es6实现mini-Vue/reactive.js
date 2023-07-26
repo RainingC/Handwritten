@@ -65,7 +65,7 @@ const reactive = (raw) => {
 }
 
 //测试代码
-const info = reactive({ counter: 100, name: 'jitengben' })
+const info = reactive({ counter: 100, name: '曹芮宁' })
 const foo = reactive({ age: 18 })
 
 //这两个函数由依赖，好，我给他收集起来
