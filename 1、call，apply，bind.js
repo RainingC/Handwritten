@@ -48,7 +48,7 @@ Function.prototype.myBind = function (context, ...args) {
   //返回一个newFn函数，在里面调用fn
   return function newFn(...newFnArgs) {
     if (this instanceof newFn) {
-      return new fn(...args, ...newFnArgs)
+      return new fn(...args, ...newFnArgs);
     }
     return fn.apply(context, [...args, ...newFnArgs])
   }

@@ -14,7 +14,7 @@ function deepClone(obj, hash = new WeakMap()) {
     hash.set(obj, constr);
     for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
-            constr[key] = deepClone(obj[key], hash)
+            constr[key] = deepClone[obj[key], hash];
         }
     }
     //考虑symbol的情况
