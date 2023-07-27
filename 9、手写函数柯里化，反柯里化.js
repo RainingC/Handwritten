@@ -5,11 +5,11 @@ function curry(fn, ...args) {
     //若参数不够就继续递归返回curry
     //若参数够就调用函数返回相应的值
     if (fnLen > argsLen) {
-        return function (...arg2s) {
-            return curry(fn, ...args, ...arg2s)
+        return function (...args1) {
+            return curry(fn, ...args, ...args1);
         }
     } else {
-        return fn(...args)
+        return fn(...args);
     }
 }
 
@@ -24,8 +24,8 @@ function curry(fn, ...args) {
 
 // 反柯里化
 function unCurrying(fn) {
-    return function (tar, ...argu) {
-        return fn.apply(tar, argu)
+    return function (tar, ...args) {
+        return fn.apply(tar, ...args);
     }
 }
 
