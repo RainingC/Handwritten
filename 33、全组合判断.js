@@ -1,3 +1,4 @@
+// 笛卡尔积算法
 function isFullCombination(datas) {
     if (datas.length === 0) return false;
     const fieldMap = new Map(); // 字段映射对象

@@ -1,10 +1,10 @@
 const gen = (erg) => {
-    let it = erg[Symbol.iterator]()
-    let next = { done: false }
+    let it = erg[Symbol.iterator]();
+    let next = { done: false };
     while (!next.done) {
-        next = it.next()
+        next = it.next();
         if (!next.done) {
-            console.log(next.value)
+            console.log(next.value);
         }
     }
 }

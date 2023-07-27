@@ -1,5 +1,5 @@
 function request(url, maxCout = 5) {
-    return fetch(url).catch((error) => {
-        maxCout <= 0 ? Promise.reject(error) : request(url, maxCout - 1);
+    return fetch(url).catch(function (err) {
+        maxCout <= 0 ? Promise.reject(err) : request(url, maxCout--);
     });
 }
