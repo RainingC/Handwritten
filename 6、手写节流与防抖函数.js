@@ -3,13 +3,13 @@ function myDebounce(fn, wait, immediate) {
     let timer = null,
         canCall = true;
     return function (...args) {
-        clearInterval(timer);
+        clearTimeout(timer);
         timer = null;
         if (immediate && canCall) {
-            fn.call(this, args);
             canCall = false;
+            fn.call(this, args);
         } else {
-            setTimeout(() => {
+            timer = setTimeout(() => {
                 canCall = true;
                 fn.call(this, args);
             }, wait);
@@ -37,7 +37,7 @@ function myThrottle (fn, wait, immediate) {
         if (time == null) {
             time = setTimeout(() => {
                 fn.call(this, args)
-                clearInterval(time)
+                clearTimeout(time)
                 time = null
             }, wait);
         }
