@@ -227,19 +227,19 @@ class MyPromise {
                 let count = 0; // Promise的总数
                 let fulfilledCount = 0; // 已完成的数量
                 for (const p of proms) {
-                    let i = count;
+                    const i = count;
                     count++;
                     MyPromise.resolve(p).then((data) => {
                         fulfilledCount++;
                         results[i] = data;
-                        if (fulfilledCount === count) {
+                        if (fulfilledCount === proms.length) {
                             // 当前是最后一个Promise完成了
                             resolve(results);
                         }
                     }, reject);
                 }
                 if (count === 0) {
-                    resolve(results);
+                    resolve([])
                 }
             } catch (error) {
                 reject(error);
