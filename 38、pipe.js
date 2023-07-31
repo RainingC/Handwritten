@@ -1,3 +1,4 @@
+// pipe中传入多个函数，会依次从左向右执行，将左面函数的执行结果作为参数传入右边一个函数中
 function pipe(...fns) {
     return function (v) {
         return fns.reduce((acc, cur) => cur(acc), v);
